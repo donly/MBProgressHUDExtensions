@@ -62,7 +62,7 @@ const char *finishedHandlerKey = "finishedHandlerKey";
 - (void)_showHUDWithMessage:(NSString *)message
 {
     self.progressHUD.labelText = message;
-    if (self.progressHUD.taskInProgress)
+    if(self.progressHUD.taskInProgress)
     {
         return;
     }
@@ -82,7 +82,7 @@ const char *finishedHandlerKey = "finishedHandlerKey";
 
 - (void)hideHUD
 {
-    if (!self.progressHUD.taskInProgress)
+    if(!self.progressHUD.taskInProgress)
     {
         return;
     }
