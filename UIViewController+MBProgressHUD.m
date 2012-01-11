@@ -20,6 +20,13 @@ const char *progressHUDKey = "progressHUDKey";
  */
 const char *finishedHandlerKey = "finishedHandlerKey";
 
+@interface UIViewController (MBProgressHUD_Private)
+
+@property (nonatomic, retain) MBProgressHUD *progressHUD;
+@property (nonatomic, copy) HUDFinishedHandler finishedHandler;
+
+@end
+
 @implementation UIViewController (MBProgressHUD)
 
 - (MBProgressHUD *)progressHUD
@@ -52,20 +59,34 @@ const char *finishedHandlerKey = "finishedHandlerKey";
     objc_setAssociatedObject(self, finishedHandlerKey, completionBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
+- (void)_showHUDWithMessage:(NSString *)message
+{
+    self.progressHUD.labelText = message;
+    if (self.progressHUD.taskInProgress)
+    {
+        return;
+    }
+    self.progressHUD.taskInProgress = YES;
+    [self.progressHUD show:YES];
+}
+
 - (void)showHUD
 {
-    self.progressHUD.labelText = nil;
-    [self.progressHUD show:YES];
+    [self _showHUDWithMessage:nil];
 }
 
 - (void)showHUDWithMessage:(NSString *)message
 {
-    self.progressHUD.labelText = message;
-    [self.progressHUD show:YES];
+    [self _showHUDWithMessage:message];
 }
 
 - (void)hideHUD
 {
+    if (!self.progressHUD.taskInProgress)
+    {
+        return;
+    }
+    self.progressHUD.taskInProgress = NO;
     [self.progressHUD hide:YES];
     self.progressHUD.labelText = nil;
 }

@@ -13,9 +13,6 @@
 
 typedef void (^HUDFinishedHandler)();
 
-@property (nonatomic, retain) MBProgressHUD *progressHUD;
-@property (nonatomic, copy) HUDFinishedHandler finishedHandler;
-
 /*
  * Shows an MBProgressHUD with the default spinner
  * The HUD is added as a subview to this view
