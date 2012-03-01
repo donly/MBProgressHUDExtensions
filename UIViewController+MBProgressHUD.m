@@ -37,6 +37,7 @@ const char *finishedHandlerKey = "finishedHandlerKey";
         UIView *hudSuperView = self.parentViewController.view;
         hud = [[[MBProgressHUD alloc] initWithView:hudSuperView] autorelease];
         hud.dimBackground = YES;
+        hud.removeFromSuperViewOnHide = YES;
         [hudSuperView addSubview:hud];
         self.progressHUD = hud;
     }
