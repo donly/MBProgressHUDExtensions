@@ -89,7 +89,7 @@ const char *finishedHandlerKey = "finishedHandlerKey";
     }
     self.progressHUD.taskInProgress = NO;
     [self.progressHUD hide:YES];
-    self.progressHUD.labelText = nil;
+    self.progressHUD = nil;
 }
 
 - (void)hideHUDWithCompletionMessage:(NSString *)message
