@@ -2,7 +2,7 @@
  *  UIViewController+MBProgressHUD.m
  *
  *  Created by Adam Duke on 10/20/11.
- *  Copyright 2011 appRenaissance, LLC. All rights reserved.
+ *  Copyright 2015 Adam Duke All rights reserved.
  *
  */
 
