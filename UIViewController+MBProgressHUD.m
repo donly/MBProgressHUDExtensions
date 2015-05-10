@@ -20,7 +20,7 @@ const char *progressHUDKey = "progressHUDKey";
  */
 const char *finishedHandlerKey = "finishedHandlerKey";
 
-@interface UIViewController (MBProgressHUD_Private)
+@interface UIViewController (MBProgressHUD_Private) <MBProgressHUDDelegate>
 
 @property (nonatomic, retain) MBProgressHUD *progressHUD;
 @property (nonatomic, copy) HUDFinishedHandler finishedHandler;
@@ -34,10 +34,11 @@ const char *finishedHandlerKey = "finishedHandlerKey";
     MBProgressHUD *hud = objc_getAssociatedObject(self, progressHUDKey);
     if(!hud)
     {
-        UIView *hudSuperView = self.view;
-        hud = [[[MBProgressHUD alloc] initWithView:hudSuperView] autorelease];
-        hud.dimBackground = YES;
+        UIView *hudSuperView = self.view.superview;
+        hud = [[MBProgressHUD alloc] initWithView:hudSuperView];
+        hud.dimBackground = NO;
         hud.removeFromSuperViewOnHide = YES;
+        hud.delegate = self;
         [hudSuperView addSubview:hud];
         self.progressHUD = hud;
     }
@@ -113,6 +114,24 @@ const char *finishedHandlerKey = "finishedHandlerKey";
         self.finishedHandler = nil;
     }
     self.progressHUD.delegate = nil;
+    self.progressHUD.taskInProgress = NO;
+    self.progressHUD = nil;
 }
+
+- (void)showHintHudWithMessage:(NSString *)message
+{
+    self.progressHUD.mode = MBProgressHUDModeText;
+    self.progressHUD.labelText = message;
+    self.progressHUD.margin = 10.f;
+    if(self.progressHUD.taskInProgress)
+    {
+        return;
+    }
+    
+    [self.progressHUD show:YES];
+    self.progressHUD.taskInProgress = YES;
+    [self.progressHUD hide:YES afterDelay:3];
+}
+
 
 @end

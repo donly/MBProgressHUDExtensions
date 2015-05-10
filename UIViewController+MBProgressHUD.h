@@ -48,4 +48,11 @@ typedef void (^HUDFinishedHandler)();
  */
 - (void)hideHUDWithCompletionMessage:(NSString *)message finishedHandler:(HUDFinishedHandler)finishedHandler;
 
+/**
+ *  Shows an MBProgressHUD with pro
+ *
+ *  @param message <#message description#>
+ */
+- (void)showHintHudWithMessage:(NSString *)message;
+
 @end
